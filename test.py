@@ -58,8 +58,8 @@ TestImgLoader = torch.utils.data.DataLoader(
     batch_size=4, shuffle=False, num_workers=4, drop_last=False)
 # batch_size=8, shuffle=False, num_workers=4, drop_last=False)
 
-if args.model == 'stackhourglass':
-    model = stackhourglass(args.maxdisp)
+if args.model == 'stackhourglass_org':
+    model = stackhourglass_org(args.maxdisp)
 elif args.model == 'bounded_stackhourglass':
     model = bounded_stackhourglass(args.mindisp, args.maxdisp)
 elif args.model == 'channel_compression':

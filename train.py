@@ -62,8 +62,8 @@ TrainImgLoader = torch.utils.data.DataLoader(
 
 start_epoch = 0
 
-if args.model == 'stackhourglass':
-    model = stackhourglass(args.maxdisp)
+if args.model == 'stackhourglass_org':
+    model = stackhourglass_org(args.maxdisp)
 elif args.model == 'bounded_stackhourglass':
     model = bounded_stackhourglass(args.mindisp, args.maxdisp)
 elif args.model == 'channel_compression':
