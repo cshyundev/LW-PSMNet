@@ -15,6 +15,15 @@ from PIL import Image
 
 # 2012 data /media/jiaren/ImageNet/data_scene_flow_2012/testing/
 
+from lightmodels.bounded_stackhourglass import *
+from lightmodels.channel_compression import *
+from lightmodels.disparity_compression import *
+from lightmodels.disparity_expansion_v1 import *
+from lightmodels.disparity_expansion_v2 import *
+from lightmodels.tapered_compression import *
+from lightmodels.uniform_compression import *
+from lightmodels.weight_sharing import *
+
 parser = argparse.ArgumentParser(description='PSMNet')
 parser.add_argument('--KITTI', default='2015',
                     help='KITTI version')
@@ -41,10 +50,24 @@ torch.manual_seed(args.seed)
 if args.cuda:
     torch.cuda.manual_seed(args.seed)
 
-if args.model == 'stackhourglass':
-    model = stackhourglass(args.maxdisp)
-elif args.model == 'basic':
-    model = basic(args.maxdisp)
+if args.model == 'stackhourglass_org':
+    model = stackhourglass_org(args.maxdisp)
+elif args.model == 'bounded_stackhourglass':
+    model = bounded_stackhourglass(args.mindisp, args.maxdisp)
+elif args.model == 'channel_compression':
+    model = channel_compression(args.maxdisp)
+elif args.model == 'disparity_compression':
+    model = disparity_compression(args.maxdisp)
+elif args.model == 'disparity_expansion_v1':
+    model = disparity_expansion_v1(args.maxdisp)
+elif args.model == 'disparity_expansion_v2':
+    model = disparity_expansion_v2(args.maxdisp)
+elif args.model == 'tapered_compression':
+    model = tapered_compression(args.maxdisp)
+elif args.model == 'uniform_compression':
+    model = uniform_compression(args.maxdisp)
+elif args.model == 'weight_sharing':
+    model = weight_sharing(args.maxdisp)
 else:
     print('no model')
 
