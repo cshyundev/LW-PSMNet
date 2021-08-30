@@ -47,6 +47,8 @@ parser.add_argument('--rightimg', default= './VO04_R.png',
                     help='load model')                                      
 parser.add_argument('--model', default='stackhourglass',
                     help='select model')
+parser.add_argument('--mindisp', type=int, default=0,
+                    help='minimum disparity')
 parser.add_argument('--maxdisp', type=int, default=192,
                     help='maxium disparity')
 parser.add_argument('--no-cuda', action='store_true', default=False,
