@@ -27,6 +27,8 @@ from lightmodels.weight_sharing import *
 
 
 parser = argparse.ArgumentParser(description='PSMNet')
+parser.add_argument('--mindisp', type=int, default=0,
+                    help='minimum disparity')
 parser.add_argument('--maxdisp', type=int, default=192,
                     help='maxium disparity')
 parser.add_argument('--model', default='stackhourglass',
@@ -37,12 +39,12 @@ parser.add_argument('--datapath', default='./',
                     help='datapath')
 parser.add_argument('--loadmodels', default=None,
                     help='load models')
-parser.add_argument('--savemodel', default='./',
-                    help='save model')
 parser.add_argument('--no-cuda', action='store_true', default=False,
                     help='enables CUDA training')
 parser.add_argument('--seed', type=int, default=1, metavar='S',
                     help='random seed (default: 1)')
+parser.add_argument('--masking', type=bool, default=True,
+                    help='use masking with minimum/maximum disparity')
 args = parser.parse_args()
 args.cuda = not args.no_cuda and torch.cuda.is_available()
 
@@ -138,7 +140,7 @@ def main():
     # ------------- TEST ------------------------------------------------------------
     for epoch in range(args.start, args.end):
         print(str(epoch) + ": test start")
-        checkpoint = torch.load(args.savemodel+"/checkpoint_%03d.tar" % epoch)
+        checkpoint = torch.load(args.loadmodels+"/checkpoint_%03d.tar" % epoch)
         model.load_state_dict(checkpoint["state_dict"])
 
         print("complete to load model")
